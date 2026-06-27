@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
-{   
+{
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
@@ -19,4 +19,9 @@ class Category extends Model
     protected $guarded = [
         'id',
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }
