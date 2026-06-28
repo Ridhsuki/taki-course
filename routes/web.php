@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscribeTransactionController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +21,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('categories', CategoryController::class)
+        ->middleware('role:owner'); // admin.categories.index
+
+    Route::resource('teachers', TeacherController::class)
+        ->middleware('role:owner');
+
+    Route::resource('courses', CourseController::class)
+        ->middleware('role:owner|teacher');
+
+    Route::resource('subscribe_transactions', SubscribeTransactionController::class)
+        ->middleware('role:owner');
+
+    Route::resource('course_videos', SubscribeTransactionController::class)
+        ->middleware('role:owner|teacher');
+});
+
+require __DIR__ . '/auth.php';
