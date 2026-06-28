@@ -1,0 +1,3 @@
+Boleh di hapus kalau folder nya udah di pake
+
+Fungsi .gitkeep adalah sebagai file penanda untuk memaksa Git melacak (melakukan commit dan push) sebuah folder atau direktori yang keadaannya kosong. 
