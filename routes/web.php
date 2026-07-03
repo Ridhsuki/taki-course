@@ -26,7 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [FrontController::class, 'checkout'])->name('front.checkout');
     Route::post('/checkout/store', [FrontController::class, 'checkout_store'])->name('front.checkout.store');
 
-
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('categories', CategoryController::class)
         ->middleware('role:owner'); // admin.categories.index
