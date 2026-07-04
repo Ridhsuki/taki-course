@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::OrderByDesc('id')->get();
-        return view('admin.categories.index', compact('categories'));  }
+        return view('admin.categories.index', compact('categories'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -28,16 +30,14 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $validated->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'icon' => ['required', 'image', 'mimes:png,jpg,jpeg,webp'],
-        ]);
 
-        DB::transaction(function () use ($validated, $request) {
-            if($request->hasFile('icon')){
-                $iconPath = $request->file('icon')->store('category_icons','public');
+        DB::transaction(function () use ($request) {
+            $validated = $request->validated();
+
+            if ($request->hasFile('icon')) {
+                $iconPath = $request->file('icon')->store('category_icons', 'public');
                 $validated['icon'] = $iconPath;
             } else {
                 $iconPath = 'images/icon-default.png';

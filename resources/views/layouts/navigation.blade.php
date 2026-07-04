@@ -27,8 +27,7 @@
                     <x-nav-link :href="route('admin.subscribe_transactions.index')" :active="request()->routeIs('admin.subscribe_transactions.index')">
                         {{ __('Manage Subscriptions') }}
                     </x-nav-link>
-                    
-                </div>W
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
