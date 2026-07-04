@@ -15,7 +15,20 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                </div>
+                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                        {{ __('Manage Categories') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.courses.index')" :active="request()->routeIs('admin.courses.index')">
+                        {{ __('Manage Courses') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.teachers.index')" :active="request()->routeIs('admin.teachers.index')">
+                        {{ __('Manage Teachers') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.subscribe_transactions.index')" :active="request()->routeIs('admin.subscribe_transactions.index')">
+                        {{ __('Manage Subscriptions') }}
+                    </x-nav-link>
+                    
+                </div>W
             </div>
 
             <!-- Settings Dropdown -->
