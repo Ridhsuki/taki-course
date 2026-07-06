@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -78,7 +78,7 @@ class CategoryController extends Controller
             if ($request->hasFile('icon')) {
                 $iconPath = $request->file('icon')->store('category_icons', 'public');
                 $validated['icon'] = $iconPath;
-            }   
+            }
 
             $validated['slug'] = Str::slug($validated['name']);
 
@@ -95,15 +95,15 @@ class CategoryController extends Controller
     {
         DB::beginTransaction();
 
-        try{
+        try {
             $category->delete();
             DB::commit();
 
             return redirect()->route('admin.categories.index');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
-            
-            return redirect()->route('admin.categories.index')->with('ERROR','Ada error bre');
+
+            return redirect()->route('admin.categories.index')->with('ERROR', 'Ada error bre');
 
         }
     }
