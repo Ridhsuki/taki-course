@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Teacher;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -27,13 +27,35 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         $userOwner = User::create([
-            'name' => 'Bos Tada',
+            'name' => 'アドミン',
             'occupation' => 'Educator',
-            'avatar' => 'images/default-avatar.png',
-            'email' => 'admin@owner.com',
+            'avatar' => null,
+            'email' => 'owner@gmail.com',
             'password' => bcrypt('password')
         ]);
-
         $userOwner->assignRole($ownerRole);
+
+        $userTeacher = User::create([
+            'name' => 'Teacher Budi',
+            'occupation' => 'Web Development Instructor',
+            'avatar' => null,
+            'email' => 'teacher@gmail.com',
+            'password' => bcrypt('password')
+        ]);
+        $userTeacher->assignRole($teacherRole);
+
+        Teacher::create([
+            'user_id' => $userTeacher->id,
+            'is_active' => true,
+        ]);
+
+        $userStudent = User::create([
+            'name' => 'Student Andi',
+            'occupation' => 'High School Student',
+            'avatar' => null,
+            'email' => 'student@gmail.com',
+            'password' => bcrypt('password')
+        ]);
+        $userStudent->assignRole($studentRole);
     }
 }
