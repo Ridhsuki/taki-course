@@ -142,7 +142,7 @@
 
                             <div>
                                 <p class="text-slate-500 text-sm">Courses</p>
-                                <h3 class="text-indigo-950 text-xl font-bold">{{ $courses }}</h3>
+                                 {{-- <h3 class="text-indigo-950 text-xl font-bold">{{ $courses }}</h3> --}}
                             </div>
                         </div>
                         <div class="flex flex-col gap-y-3">
@@ -163,7 +163,8 @@
                             </svg>
                             <div>
                                 <p class="text-slate-500 text-sm">Students</p>
-                                <h3 class="text-indigo-950 text-xl font-bold">{{ $students }}</h3>
+                            {{-- <h3 class="text-indigo-950 text-xl font-bold">{{ $students }}</h3> --}}
+
                             </div>
                         </div>
                         <a href="{{ route('admin.courses.create') }}"
