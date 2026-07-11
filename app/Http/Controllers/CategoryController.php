@@ -104,7 +104,6 @@ class CategoryController extends Controller
             DB::rollback();
 
             return redirect()->route('admin.categories.index')->with('ERROR', 'Ada error bre');
-
         }
     }
 }

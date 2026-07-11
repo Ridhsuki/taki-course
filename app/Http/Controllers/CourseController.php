@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Course;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -39,7 +40,6 @@ class CourseController extends Controller
     {
         $categories = Category::all();
         return view('admin.courses.create', compact('categories'));
-
     }
 
     /**
@@ -75,7 +75,6 @@ class CourseController extends Controller
                     ]);
                 }
             }
-
         });
 
         return redirect()->route('admin.courses.index')->with('success', 'Course berhasil ditambahkan!');
@@ -86,7 +85,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        return view('admin.courses.show', compact('course'));
     }
 
     /**
@@ -94,15 +93,39 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        $categories = Category::all();
+        return view('admin.courses.edit', compact('course', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Course $course)
+    public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
+        DB::transaction(function () use ($request, $course) {
+
+            $validated = $request->validated();
+
+            if ($request->hasFile('thumbnail')) {
+                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $validated['thumbnail'] = $thumbnailPath;
+            }
+
+            $validated['slug'] = Str::slug($validated['name']);
+
+            $course->update($validated);
+
+            if (!empty($validated['course_keypoints'])) {
+                $course->course_keypoints()->delete();
+                foreach ($validated['course_keypoints'] as $keypointText) {
+                    $course->course_keypoints()->create([
+                        'name' => $keypointText,
+                    ]);
+                }
+            }
+        });
+
+        return redirect()->route('admin.courses.show', $course)->with('success', 'Course berhasil di!');
     }
 
     /**
@@ -121,7 +144,6 @@ class CourseController extends Controller
             DB::rollback();
 
             return redirect()->route('admin.courses.index')->with('ERROR', 'Ada error bre');
-
         }
     }
 }
