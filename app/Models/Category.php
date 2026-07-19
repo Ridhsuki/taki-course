@@ -20,6 +20,11 @@ class Category extends Model
         'id',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function courses()
     {
         return $this->hasMany(Course::class);
