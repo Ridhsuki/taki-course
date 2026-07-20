@@ -1,2 +1,6 @@
 *
 !.gitignore
+!category_icons/
+!category_icons/*.svg
+!thumbnails/
+!thumbnails/*.svg

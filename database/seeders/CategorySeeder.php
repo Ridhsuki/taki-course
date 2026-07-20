@@ -13,32 +13,32 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Web Development',
                 'slug' => 'web-development',
-                'icon' => null,
+                'icon' => 'category_icons/web-development.svg',
             ],
             [
                 'name' => 'Mobile Development',
                 'slug' => 'mobile-development',
-                'icon' => null,
+                'icon' => 'category_icons/mobile-development.svg',
             ],
             [
                 'name' => 'UI UX Design',
                 'slug' => 'ui-ux-design',
-                'icon' => null,
+                'icon' => 'category_icons/ui-ux-design.svg',
             ],
             [
                 'name' => 'Data Science',
                 'slug' => 'data-science',
-                'icon' => null,
+                'icon' => 'category_icons/data-science.svg',
             ],
             [
                 'name' => 'Cyber Security',
                 'slug' => 'cyber-security',
-                'icon' => null,
+                'icon' => 'category_icons/cyber-security.svg',
             ],
             [
                 'name' => 'Digital Marketing',
                 'slug' => 'digital-marketing',
-                'icon' => null,
+                'icon' => 'category_icons/digital-marketing.svg',
             ],
         ];
 

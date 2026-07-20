@@ -84,7 +84,7 @@ class CourseSeeder extends Seeder
                 'slug' => 'laravel-11-untuk-pemula',
                 'path_trailer' => 'eUNWzJUvkCA',
                 'about' => 'Mempelajari dasar Laravel 11 mulai dari routing, controller, Blade, database, autentikasi, hingga deployment.',
-                'thumbnail' => null,
+                'thumbnail' => 'thumbnails/laravel-11-modern-web-application.svg',
                 'category_slug' => 'web-development',
                 'keypoints' => [
                     'Memahami struktur project Laravel',
@@ -113,7 +113,7 @@ class CourseSeeder extends Seeder
                 'slug' => 'react-native-dan-expo',
                 'path_trailer' => 'obH0Po_RdWk',
                 'about' => 'Membangun aplikasi mobile lintas platform menggunakan React Native dan Expo.',
-                'thumbnail' => null,
+                'thumbnail' => 'thumbnails/react-native-expo-for-beginners.svg',
                 'category_slug' => 'mobile-development',
                 'keypoints' => [
                     'Memahami komponen React Native',
@@ -142,7 +142,7 @@ class CourseSeeder extends Seeder
                 'slug' => 'ui-ux-design-dengan-figma',
                 'path_trailer' => 'FTFaQWZBqQ8',
                 'about' => 'Mempelajari proses desain antarmuka dan pengalaman pengguna dari wireframe hingga prototype.',
-                'thumbnail' => null,
+                'thumbnail' => 'thumbnails/ui-ux-design-with-figma.svg',
                 'category_slug' => 'ui-ux-design',
                 'keypoints' => [
                     'Memahami prinsip UI dan UX',
@@ -171,7 +171,7 @@ class CourseSeeder extends Seeder
                 'slug' => 'python-data-analysis',
                 'path_trailer' => 'vmEHCJofslg',
                 'about' => 'Mengolah, membersihkan, menganalisis, dan memvisualisasikan data menggunakan Python dan Pandas.',
-                'thumbnail' => null,
+                'thumbnail' => 'thumbnails/python-data-analysis-fundamentals.svg',
                 'category_slug' => 'data-science',
                 'keypoints' => [
                     'Menggunakan Python untuk analisis data',
@@ -200,7 +200,7 @@ class CourseSeeder extends Seeder
                 'slug' => 'cyber-security-fundamentals',
                 'path_trailer' => 'U_P23SqJaDc',
                 'about' => 'Memahami konsep dasar keamanan siber, jaringan, ancaman, autentikasi, dan praktik perlindungan sistem.',
-                'thumbnail' => null,
+                'thumbnail' => 'thumbnails/cybersecurity-fundamentals.svg',
                 'category_slug' => 'cyber-security',
                 'keypoints' => [
                     'Memahami dasar keamanan siber',
@@ -229,7 +229,7 @@ class CourseSeeder extends Seeder
                 'slug' => 'digital-marketing-dan-seo',
                 'path_trailer' => 'xsVTqzratPs',
                 'about' => 'Mempelajari strategi digital marketing, content marketing, SEO, dan pengukuran performa kampanye.',
-                'thumbnail' => null,
+                'thumbnail' => 'thumbnails/digital-marketing-seo-fundamentals.svg',
                 'category_slug' => 'digital-marketing',
                 'keypoints' => [
                     'Memahami funnel digital marketing',
