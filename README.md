@@ -10,15 +10,15 @@
 
 ---
 
-## 🚀 Fitur Utama
+## Fitur Utama
 
-### 🌐 Public & Student Experience
+### Public & Student Experience
 * **Interactive Landing Page**: Tampilan depan modern dengan banner dinamis, daftar kategori populer, carousel kursus favorit (Flickity), dan slider testimoni.
 * **Course Catalog & Detail Page**: Eksplorasi materi kursus lengkap dengan daftar video pembelajaran, manfaat kelas, dan portofolio siswa (Fancybox).
 * **Protected Video Player**: Halaman *Learning Experience* berbasis video player (Plyr) yang terproteksi sesuai dengan hak akses dan status berlangganan.
 * **Subscription & Checkout**: Alur transaksi checkout langganan yang fleksibel untuk pengguna dengan role `student`.
 
-### 🛡️ Admin & Role-Based Access Control (RBAC)
+### Admin & Role-Based Access Control (RBAC)
 Menggunakan **Spatie Laravel Permission** dengan 3 tingkatan peran (*Role*):
 * **Owner (Administrator Utama)**:
   * Manajemen Kategori (*Categories*)
@@ -33,7 +33,7 @@ Menggunakan **Spatie Laravel Permission** dengan 3 tingkatan peran (*Role*):
 
 ---
 
-## 🛠️ Teknologi & Stack
+## Teknologi & Stack
 
 * **Backend**: PHP 8.2+, [Laravel 11](https://laravel.com/)
 * **Frontend**: Blade Templates, [Tailwind CSS](https://tailwindcss.com/)
@@ -46,7 +46,7 @@ Menggunakan **Spatie Laravel Permission** dengan 3 tingkatan peran (*Role*):
 
 ---
 
-## 📋 Persyaratan Sistem
+## Persyaratan Sistem
 
 Sebelum menjalankan proyek ini, pastikan sistem Anda telah memenuhi persyaratan berikut:
 * **PHP** >= 8.2
@@ -56,7 +56,7 @@ Sebelum menjalankan proyek ini, pastikan sistem Anda telah memenuhi persyaratan 
 
 ---
 
-## ⚙️ Panduan Instalasi
+## Panduan Instalasi
 
 Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan lokal (*Local Development*):
 
@@ -120,7 +120,7 @@ Buka browser Anda dan akses: `http://127.0.0.1:8000`
 
 ---
 
-## 📁 Struktur Direktori Utama
+## Struktur Direktori Utama
 
 ```text
 taki-course/
@@ -141,19 +141,6 @@ taki-course/
     └── auth.php                # Rute otentikasi login/register
 ```
 
----
+## Lisensi
 
-## 🤝 Kontribusi
-
-Kontribusi selalu terbuka! Jika Anda ingin berkontribusi:
-1. Fork repository ini.
-2. Buat feature branch baru (`git checkout -b feature/FiturBaru`).
-3. Commit perubahan Anda (`git commit -m 'Menambahkan FiturBaru'`).
-4. Push ke branch tersebut (`git push origin feature/FiturBaru`).
-5. Buat **Pull Request**.
-
----
-
-## 📄 Lisensi
-
-Proyek ini dikembangkan di bawah lisensi [MIT License](LICENSE).
+Proyek ini dikembangkan menggunakan Laravel 11 di bawah lisensi [MIT License](LICENSE).
