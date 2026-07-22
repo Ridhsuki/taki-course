@@ -52,7 +52,10 @@ if ($('#course-slider').length) {
         adaptiveHeight: true,
         groupCells: 3,
         pageDots: false,
-        prevNextButtons: false
+        prevNextButtons: false,
+        selectedAttraction: 0.015,
+        friction: 0.2,
+        freeScroll: true,
     });
 
     // Previous button click event

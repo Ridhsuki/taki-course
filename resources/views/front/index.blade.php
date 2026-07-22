@@ -15,8 +15,8 @@
     <div id="hero-section"
         class="max-w-[1200px] mx-auto w-full flex flex-col gap-10 pb-[50px] bg-[url('assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden">
         <nav class="flex justify-between items-center pt-6 px-[50px]">
-            <a href="">
-                <img src="assets/logo/logo.svg" alt="logo">
+            <a href="" class="flex shrink-0">
+                <img src="{{ asset('assets/logo/logo-white-custom.png') }}" alt="logo" style="height: 48px; width: auto;" class="object-contain">
             </a>
             <ul class="flex items-center gap-[30px] text-white">
                 <li>
@@ -33,10 +33,10 @@
                 </li>
             </ul>
             <div class="flex gap-[10px] items-center">
-                <a href="{{ route('login') }}"
+                <a href="{{ route('register') }}"
                     class="text-white font-semibold rounded-[30px] p-[16px_32px] ring-1 ring-white transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">Sign
                     Up</a>
-                <a href=""
+                <a href="{{ route('login') }}"
                     class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129] transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980]">Sign
                     In</a>
             </div>
@@ -102,7 +102,7 @@
                 <a href="{{ route('front.category', $category) }}"
                     class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
                     <div class="w-[70px] h-[70px] flex shrink-0">
-                        <img src="{{ asset('storage/' . $category->icon) }}" alt="{{ $category->name }}"
+                        <img src="{{ Storage::url($category->icon) }}" alt="{{ $category->name }}"
                             class="object-contain" loading="lazy">
                     </div>
                     <p class="font-bold text-lg">{{ $category->name }}</p>
@@ -153,7 +153,7 @@
             <button class="btn-prev absolute rotate-180 -left-[52px] top-[216px]">
                 <img src="assets/icon/arrow-right.svg" alt="icon">
             </button>
-            <button class="btn-prev absolute -right-[52px] top-[216px]">
+            <button class="btn-next absolute -right-[52px] top-[216px]">
                 <img src="assets/icon/arrow-right.svg" alt="icon">
             </button>
             <div id="course-slider" class="w-full">
@@ -161,13 +161,13 @@
                     <div class="course-card w-1/3 px-3 pb-[70px] mt-[2px]">
                         <div
                             class="flex flex-col rounded-t-[12px] rounded-b-[24px] gap-[32px] bg-white w-full pb-[10px] overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">
-                            <a href="details.html"
+                            <a href="{{route('front.details', $course->slug)}}"
                                 class="thumbnail w-full h-[200px] shrink-0 rounded-[10px] overflow-hidden">
                                 <img src="{{ Storage::url($course->thumbnail) }}" class="w-full h-full object-cover"
                                     alt="thumbnail">
                             </a>
                             <div class="flex flex-col px-4 gap-[10px]">
-                                <a href="details.html"
+                                <a href="{{route('front.details', $course->slug)}}"
                                     class="font-semibold text-lg line-clamp-2 hover:line-clamp-none min-h-[56px]">{{ $course->name }}</a>
                                 <div class="flex justify-between items-center">
                                     <div class="flex items-center gap-[2px]">
@@ -811,9 +811,9 @@
     <footer
         class="max-w-[1200px] mx-auto flex flex-col pt-[70px] pb-[50px] px-[100px] gap-[50px] bg-[#F5F8FA] rounded-[32px]">
         <div class="flex justify-between">
-            <a href="">
+            <a href="" class="flex shrink-0">
                 <div>
-                    <img src="assets/logo/logo-black.svg" alt="logo">
+                    <img src="{{ asset('assets/logo/logo-black-custom.png') }}" alt="logo" style="height: 45px; width: auto;" class="object-contain">
                 </div>
             </a>
             <div class="flex flex-col gap-5">
