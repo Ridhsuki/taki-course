@@ -1,7 +1,8 @@
 # Taki Course - Modern LMS & Online Learning Platform
 
 <p align="center">
-  <img src="public/assets/logo/logo.svg" alt="Taki Course Logo" width="200">
+    <img src="public/assets/logo/logo-black-custom.png#gh-light-mode-only" alt="Taki Course Logo" width="200">
+    <img src="public/assets/logo/logo-white-custom.png#gh-dark-mode-only" alt="Taki Course Logo" width="200">
 </p>
 
 <p align="center">
