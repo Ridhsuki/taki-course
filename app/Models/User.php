@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,7 +25,6 @@ class User extends Authenticatable
         'password',
         'occupation',
         'avatar',
-
     ];
 
     /**
@@ -57,21 +57,22 @@ class User extends Authenticatable
 
     public function subscribe_transactions()
     {
-        return $this-> hasMany(SubscribeTransaction::class);
+        return $this->hasMany(SubscribeTransaction::class);
     }
 
     public function HasActiveSubscribtion()
     {
-        $latestSubscription = $this->$subscribe_transaction()
-        -> where('is_paid', true)
-        -> latest('updated_at')
-        -> first();
+        $latestSubscription = $this
+            ->subscribe_transactions()
+            ->where('is_paid', true)
+            ->latest('updated_at')
+            ->first();
 
-        if(!$latestSubscription){
-        return false;
-    }
+        if (!$latestSubscription) {
+            return false;
+        }
 
-        $subscriptionEndDate = Carbon::parse($latestSubscription->$subscription_start_date)->addMonths(1);
+        $subscriptionEndDate = Carbon::parse($latestSubscription->subscription_start_date)->addMonths(1);
         return Carbon::now()->lessThanOrEqualTo($subscriptionEndDate);
     }
 }
