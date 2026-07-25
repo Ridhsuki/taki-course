@@ -16,30 +16,51 @@
         class="max-w-[1200px] mx-auto w-full flex flex-col gap-10 pb-[50px] bg-[url('assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden">
         <nav class="flex justify-between items-center pt-6 px-[50px]">
             <a href="" class="flex shrink-0">
-                <img src="{{ asset('assets/logo/logo-white-custom.png') }}" alt="logo" style="height: 48px; width: auto;" class="object-contain">
+                <img src="{{ asset('assets/logo/logo-white-custom.png') }}" alt="logo"
+                    style="height: 48px; width: auto;" class="object-contain">
             </a>
             <ul class="flex items-center gap-[30px] text-white">
                 <li>
-                    <a href="" class="font-semibold">Home</a>
+                    <a href="{{ route('front.index') }}" class="font-semibold">Home</a>
                 </li>
                 <li>
-                    <a href="pricing.html" class="font-semibold">Pricing</a>
+                    <a href="{{ route('front.pricing') }}" class="font-semibold">Pricing</a>
                 </li>
                 <li>
-                    <a href="" class="font-semibold">Benefits</a>
+                    <a href="#" class="font-semibold">Benefits</a>
                 </li>
                 <li>
-                    <a href="" class="font-semibold">Stories</a>
+                    <a href="#" class="font-semibold">Stories</a>
                 </li>
             </ul>
-            <div class="flex gap-[10px] items-center">
-                <a href="{{ route('register') }}"
-                    class="text-white font-semibold rounded-[30px] p-[16px_32px] ring-1 ring-white transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">Sign
-                    Up</a>
-                <a href="{{ route('login') }}"
-                    class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129] transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980]">Sign
-                    In</a>
-            </div>
+            @auth
+                <div class="flex gap-[10px] items-center">
+                    <div class="flex flex-col items-end justify-center">
+                        <p class="font-semibold text-white">Hi, {{ Auth::user()->name }}</p>
+                        @if (Auth::user()->HasActiveSubscribtion())
+                            <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">
+                                PRO
+                            </p>
+                        @endif
+                    </div>
+                    <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
+                        <a href="{{ route('dashboard') }}">
+                            <img src="{{ Auth::user()->avatar ? Storage::url(Auth::user()->avatar) : asset('images/default-avatar.png') }}"
+                                loading="lazy" class="w-full h-full object-cover" alt="{{ Auth::user()->name }}">
+                        </a>
+                    </div>
+                </div>
+            @endauth
+            @guest
+                <div class="flex gap-[10px] items-center">
+                    <a href="{{ route('register') }}"
+                        class="text-white font-semibold rounded-[30px] p-[16px_32px] ring-1 ring-white transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">Sign
+                        Up</a>
+                    <a href="{{ route('login') }}"
+                        class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129] transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980]">Sign
+                        In</a>
+                </div>
+            @endguest
         </nav>
         <div class="flex flex-col items-center gap-[30px]">
             <div class="w-fit flex items-center gap-3 p-2 pr-6 rounded-full bg-[#FFFFFF1F] border border-[#3477FF24]">
@@ -161,13 +182,13 @@
                     <div class="course-card w-1/3 px-3 pb-[70px] mt-[2px]">
                         <div
                             class="flex flex-col rounded-t-[12px] rounded-b-[24px] gap-[32px] bg-white w-full pb-[10px] overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">
-                            <a href="{{route('front.details', $course->slug)}}"
+                            <a href="{{ route('front.details', $course->slug) }}"
                                 class="thumbnail w-full h-[200px] shrink-0 rounded-[10px] overflow-hidden">
                                 <img src="{{ Storage::url($course->thumbnail) }}" class="w-full h-full object-cover"
                                     alt="thumbnail">
                             </a>
                             <div class="flex flex-col px-4 gap-[10px]">
-                                <a href="{{route('front.details', $course->slug)}}"
+                                <a href="{{ route('front.details', $course->slug) }}"
                                     class="font-semibold text-lg line-clamp-2 hover:line-clamp-none min-h-[56px]">{{ $course->name }}</a>
                                 <div class="flex justify-between items-center">
                                     <div class="flex items-center gap-[2px]">
@@ -813,7 +834,8 @@
         <div class="flex justify-between">
             <a href="" class="flex shrink-0">
                 <div>
-                    <img src="{{ asset('assets/logo/logo-black-custom.png') }}" alt="logo" style="height: 45px; width: auto;" class="object-contain">
+                    <img src="{{ asset('assets/logo/logo-black-custom.png') }}" alt="logo"
+                        style="height: 45px; width: auto;" class="object-contain">
                 </div>
             </a>
             <div class="flex flex-col gap-5">

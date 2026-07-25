@@ -23,29 +23,46 @@
             </a>
             <ul class="flex items-center gap-[30px] text-white">
                 <li>
-                    <a href="" class="font-semibold">Home</a>
+                    <a href="{{ route('front.index') }}" class="font-semibold">Home</a>
                 </li>
                 <li>
-                    <a href="pricing.html" class="font-semibold">Pricing</a>
+                    <a href="{{ route('front.pricing') }}" class="font-semibold">Pricing</a>
                 </li>
                 <li>
-                    <a href="" class="font-semibold">Benefits</a>
+                    <a href="#" class="font-semibold">Benefits</a>
                 </li>
                 <li>
-                    <a href="" class="font-semibold">Stories</a>
+                    <a href="#" class="font-semibold">Stories</a>
                 </li>
             </ul>
-            <div class="flex gap-[10px] items-center">
-                <div class="flex flex-col items-end justify-center">
-                    <p class="font-semibold text-white">Hi, Annasia</p>
-                    <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">PRO
-                    </p>
+            @auth
+                <div class="flex gap-[10px] items-center">
+                    <div class="flex flex-col items-end justify-center">
+                        <p class="font-semibold text-white">Hi, {{ Auth::user()->name }}</p>
+                        @if (Auth::user()->HasActiveSubscribtion())
+                            <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">
+                                PRO
+                            </p>
+                        @endif
+                    </div>
+                    <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
+                        <a href="{{ route('dashboard') }}">
+                            <img src="{{ Auth::user()->avatar ? Storage::url(Auth::user()->avatar) : asset('images/default-avatar.png') }}"
+                                loading="lazy" class="w-full h-full object-cover" alt="{{ Auth::user()->name }}">
+                        </a>
+                    </div>
                 </div>
-                <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
-                    <img src="{{ asset('assets//photo/photo5.png') }}" class="w-full h-full object-cover"
-                        alt="photo">
+            @endauth
+            @guest
+                <div class="flex gap-[10px] items-center">
+                    <a href="{{ route('register') }}"
+                        class="text-white font-semibold rounded-[30px] p-[16px_32px] ring-1 ring-white transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">Sign
+                        Up</a>
+                    <a href="{{ route('login') }}"
+                        class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129] transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980]">Sign
+                        In</a>
                 </div>
-            </div>
+            @endguest
         </nav>
     </div>
     <section id="video-content" class="max-w-[1100px] w-full mx-auto mt-[130px]">
@@ -57,7 +74,7 @@
             </div>
             <div
                 class="video-player-sidebar flex flex-col shrink-0 w-[330px] h-[470px] bg-[#F5F8FA] rounded-[20px] p-5 gap-5 pb-0 overflow-y-scroll no-scrollbar">
-                <p class="font-bold text-lg text-white">{{ $course->course_videos->count() }} Lessons</p>
+                <p class="font-bold text-lg text-black">{{ $course->course_videos->count() }} Lessons</p>
                 <div class="flex flex-col gap-3">
                     <div
                         class="group p-[12px_16px] flex items-center gap-[10px] bg-[#3525B3] rounded-full hover:bg-[#3525B3] transition-all duration-300">
