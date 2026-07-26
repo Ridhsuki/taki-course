@@ -23,36 +23,53 @@
             </a>
             <ul class="flex items-center gap-[30px] text-white">
                 <li>
-                    <a href="" class="font-semibold">Home</a>
+                    <a href="{{ route('front.index') }}" class="font-semibold">Home</a>
                 </li>
                 <li>
-                    <a href="pricing.html" class="font-semibold">Pricing</a>
+                    <a href="{{ route('front.pricing') }}" class="font-semibold">Pricing</a>
                 </li>
                 <li>
-                    <a href="" class="font-semibold">Benefits</a>
+                    <a href="#" class="font-semibold">Benefits</a>
                 </li>
                 <li>
-                    <a href="" class="font-semibold">Stories</a>
+                    <a href="#" class="font-semibold">Stories</a>
                 </li>
             </ul>
-            <div class="flex gap-[10px] items-center">
-                <div class="flex flex-col items-end justify-center">
-                    <p class="font-semibold text-white">Hi, Annasia</p>
-                    <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">PRO
-                    </p>
+            @auth
+                <div class="flex gap-[10px] items-center">
+                    <div class="flex flex-col items-end justify-center">
+                        <p class="font-semibold text-white">Hi, {{ Auth::user()->name }}</p>
+                        @if (Auth::user()->HasActiveSubscribtion())
+                            <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">
+                                PRO
+                            </p>
+                        @endif
+                    </div>
+                    <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
+                        <a href="{{ route('dashboard') }}">
+                            <img src="{{ Auth::user()->avatar ? Storage::url(Auth::user()->avatar) : asset('images/default-avatar.png') }}"
+                                loading="lazy" class="w-full h-full object-cover" alt="{{ Auth::user()->name }}">
+                        </a>
+                    </div>
                 </div>
-                <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
-                    <img src="{{ asset('assets//photo/photo5.png') }}" class="w-full h-full object-cover"
-                        alt="photo">
+            @endauth
+            @guest
+                <div class="flex gap-[10px] items-center">
+                    <a href="{{ route('register') }}"
+                        class="text-white font-semibold rounded-[30px] p-[16px_32px] ring-1 ring-white transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">Sign
+                        Up</a>
+                    <a href="{{ route('login') }}"
+                        class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129] transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980]">Sign
+                        In</a>
                 </div>
-            </div>
+            @endguest
         </nav>
     </div>
     <section id="video-content" class="max-w-[1100px] w-full mx-auto mt-[130px]">
         <div class="video-player relative flex flex-nowrap gap-5">
             <div class="plyr__video-embed w-full overflow-hidden relative rounded-[20px]" id="player">
                 <iframe
-                    src="https://www.youtube.com/embed/{{ $video->path_video     }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                    src="https://www.youtube.com/embed/{{ $video->path_video }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
                     allowfullscreen allowtransparency allow="autoplay"></iframe>
             </div>
             <div
@@ -75,35 +92,34 @@
                         </a>
                     </div>
                     @forelse ($course->course_videos as $video)
-
-
-                    @php
-                        $currentVideoId = Route::current()->parameter('courseVideoId');
-                        $isActive = $currentVideoId == $video->id;
-                    @endphp
+                        @php
+                            $currentVideoId = Route::current()->parameter('courseVideoId');
+                            $isActive = $currentVideoId == $video->id;
+                        @endphp
                         <div
                             class="group p-[12px_16px] flex items-center gap-[10px] {{ $isActive ? 'bg-[#3525B3]' : 'bg-[#E9EFF3]' }} rounded-full hover:bg-[#3525B3] transition-all duration-300">
-                            @if($isActive)
-                            <div class="text-white group-hover:text-white transition-all duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 14.74 8.61997 13.9V10.55C8.61997 9.72 9.04997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
-                                        fill="currentColor" />
-                                </svg>
-                            </div>
+                            @if ($isActive)
+                                <div class="text-white group-hover:text-white transition-all duration-300">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 14.74 8.61997 13.9V10.55C8.61997 9.72 9.04997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </div>
                             @else
-                            <div class="text-black group-hover:text-white transition-all duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 14.74 8.61997 13.9V10.55C8.61997 9.72 9.04997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
-                                        fill="currentColor" />
-                                </svg>
-                            </div>
+                                <div class="text-black group-hover:text-white transition-all duration-300">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 14.74 8.61997 13.9V10.55C8.61997 9.72 9.04997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </div>
                             @endif
                             <a href="{{ route('front.learning', [$course, 'courseVideoId' => $video->id]) }}">
-                                <p class="font-semibold group-hover:text-white transition-all duration-300 {{ $isActive ? 'text-white' : 'text-black' }}">
+                                <p
+                                    class="font-semibold group-hover:text-white transition-all duration-300 {{ $isActive ? 'text-white' : 'text-black' }}">
                                     {{ $video->name }}</p>
                             </a>
                         </div>
