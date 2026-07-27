@@ -22,6 +22,16 @@ class FrontController extends Controller
         return view('front.index', compact('categories', 'courses'));
     }
 
+    public function pricing()
+    {
+        return view('front.pricing');
+    }
+
+    public function checkout()
+    {
+        return view('front.checkout');
+    }
+
     public function details(Course $course)
     {
         return view('front.details', compact('course'));
