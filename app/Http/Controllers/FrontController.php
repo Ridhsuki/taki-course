@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSubscribeTransactionRequest;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\SubscribeTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FrontController extends Controller
 {
@@ -35,6 +38,34 @@ class FrontController extends Controller
     public function details(Course $course)
     {
         return view('front.details', compact('course'));
+    }
+
+    public function checkout_store(StoreSubscribeTransactionRequest $request)
+    {
+        $user = Auth::user();
+
+        if (Auth::user()->hasActiveSubscription()) {
+            return redirect()->route('front.index');
+        }
+
+        DB::transaction(function () use ($request, $user) {
+
+            $validated = $request->validated();
+
+            if ($request->hasFile('proof')) {
+                $proofPath = $request->file('proof')->store('proofs', 'public');
+                $validated['proof'] = $proofPath;
+            }
+
+            $validated['user_id'] = $user->id;
+            $validated['total_amount'] = 429000;
+            $validated['is_paid'] = false;
+
+            $transaction = SubscribeTransaction::create($validated);
+
+        });
+
+        return redirect()->route('dashboard');
     }
 
     public function learning(Course $course, $courseVideoId)
