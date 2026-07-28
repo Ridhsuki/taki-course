@@ -25,13 +25,25 @@ class FrontController extends Controller
         return view('front.index', compact('categories', 'courses'));
     }
 
+    public function category(Category $category)
+    {
+        $courses = $category->courses()->get();
+        return view('front.category', compact('category', 'courses'));
+    }
+
     public function pricing()
     {
+        if (Auth::user()->hasActiveSubscription()) {
+            return redirect()->route('front.index');
+        }
         return view('front.pricing');
     }
 
     public function checkout()
     {
+        if (Auth::user()->hasActiveSubscription()) {
+            return redirect()->route('front.index');
+        }
         return view('front.checkout');
     }
 
@@ -49,7 +61,6 @@ class FrontController extends Controller
         }
 
         DB::transaction(function () use ($request, $user) {
-
             $validated = $request->validated();
 
             if ($request->hasFile('proof')) {
@@ -62,7 +73,6 @@ class FrontController extends Controller
             $validated['is_paid'] = false;
 
             $transaction = SubscribeTransaction::create($validated);
-
         });
 
         return redirect()->route('dashboard');
