@@ -14,7 +14,7 @@
     />
 </head>
 <body class="text-black font-poppins pt-10 pb-[50px]">
-    <div id="hero-section" class="max-w-[1200px] mx-auto w-full h-[536px] flex flex-col gap-10 pb-[50px] bg-[url('assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden relative">
+    <div id="hero-section" class="max-w-[1200px] mx-auto w-full h-[536px] flex flex-col gap-10 pb-[50px] bg-[url('/assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden relative">
         <nav class="flex justify-between items-center pt-6 px-[50px]">
             <a href="{{ route('front.index') }}" class="flex shrink-0">
                 <img src="{{ asset('assets/logo/logo-white-custom.png') }}" alt="logo"
@@ -38,7 +38,7 @@
                 <div class="flex gap-[10px] items-center">
                     <div class="flex flex-col items-end justify-center">
                         <p class="font-semibold text-white">Hi, {{ Auth::user()->name }}</p>
-                        @if (Auth::user()->HasActiveSubscribtion())
+                        @if (Auth::user()->hasActiveSubscription())
                             <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">
                                 PRO
                             </p>
