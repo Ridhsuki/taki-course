@@ -31,7 +31,7 @@
                 <div class="flex gap-[10px] items-center">
                     <div class="flex flex-col items-end justify-center">
                         <p class="font-semibold text-white">Hi, {{ Auth::user()->name }}</p>
-                        @if (Auth::user()->HasActiveSubscribtion())
+                        @if (Auth::user()->hasActiveSubscription())
                             <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">
                                 PRO
                             </p>
@@ -635,10 +635,8 @@
     </section>
     <footer class="max-w-[1200px] mx-auto flex flex-col pt-[70px] pb-[50px] px-[100px] gap-[50px] bg-[#F5F8FA] rounded-[32px]">
         <div class="flex justify-between">
-            <a href="">
-                <div>
-                    <img src="{{ asset('assets/logo/logo-black.svg')}}" alt="logo">
-                </div>
+            <a href="{{ route('front.index') }}" class="flex shrink-0">
+                <img src="{{ asset('assets/logo/logo-black-custom.png') }}" alt="Taki Course" class="h-[45px] w-auto object-contain">
             </a>
             <div class="flex flex-col gap-5">
                 <p class="font-semibold text-lg">Products</p>

@@ -13,7 +13,7 @@
 
 <body class="text-black font-poppins pt-10">
     <div id="checkout-section"
-        class="max-w-[1200px] mx-auto w-full min-h-[calc(100vh-40px)] flex flex-col gap-[30px] bg-[url('assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-t-[32px] overflow-hidden relative pb-6">
+        class="max-w-[1200px] mx-auto w-full min-h-[calc(100vh-40px)] flex flex-col gap-[30px] bg-[url('/assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-t-[32px] overflow-hidden relative pb-6">
         <nav class="flex justify-between items-center pt-6 px-[50px]">
             <a href="{{ route('front.index') }}" class="flex shrink-0">
                 <img src="{{ asset('assets/logo/logo-white-custom.png') }}" alt="logo"

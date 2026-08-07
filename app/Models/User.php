@@ -60,7 +60,7 @@ class User extends Authenticatable
         return $this->hasMany(SubscribeTransaction::class);
     }
 
-    public function HasActiveSubscribtion()
+    public function hasActiveSubscription()
     {
         $latestSubscription = $this
             ->subscribe_transactions()

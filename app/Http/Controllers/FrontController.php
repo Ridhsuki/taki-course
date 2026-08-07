@@ -33,7 +33,7 @@ class FrontController extends Controller
 
     public function pricing()
     {
-        if (Auth::user()->hasActiveSubscription()) {
+        if (Auth::check() && Auth::user()->hasActiveSubscription()) {
             return redirect()->route('front.index');
         }
         return view('front.pricing');
@@ -81,7 +81,7 @@ class FrontController extends Controller
     public function learning(Course $course, $courseVideoId)
     {
         $user = Auth::user();
-        if (!$user->HasActiveSubscribtion()) {
+        if (!$user->hasActiveSubscription()) {
             return redirect()->route('front.pricing');
         }
         $video = $course->course_videos->firstWhere('id', $courseVideoId);
