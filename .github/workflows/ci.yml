@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: CI Quality Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo, sqlite3, pdo_sqlite, xml, ctype
+          coverage: none
+          tools: composer:v2
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-progress
+
+      - name: Prepare Test Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate --ansi
+
+      - name: Run PHPUnit Tests
+        run: ./vendor/bin/phpunit
+
+      # Temporary non-blocking check for pre-existing codebase formatting debt (~30 unformatted files).
+      # Pint check should become blocking (continue-on-error: false) after a dedicated baseline formatting cleanup.
+      - name: Check PHP Code Style (Pint)
+        run: ./vendor/bin/pint --test
+        continue-on-error: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22
+
+      - name: Install Frontend Dependencies
+        run: npm ci
+
+      - name: Build Frontend Assets
+        run: npm run build
