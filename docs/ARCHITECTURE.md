@@ -242,18 +242,17 @@ The frontend uses a dual-asset pipeline:
 
 * **Framework**: PHPUnit 11 configured in `phpunit.xml`.
 * **Database Connection**: Configured to run in-memory SQLite (`<env name="DB_CONNECTION" value="sqlite"/>`, `<env name="DB_DATABASE" value=":memory:"/>`).
+* **Test Infrastructure Status**: **Healthy / Green Baseline**. Test infrastructure foundation defects (missing `occupation` in `UserFactory`, missing `RefreshDatabase` trait in `ExampleTest`, and stale inputs in `RegistrationTest`) have been resolved.
 
-### Test Execution Bottlenecks (Current Failures)
+### Test Coverage Gaps
 
-1. **`UserFactory` Omission**:
-   * The `users` migration specifies `$table->string('occupation')` as NOT NULL.
-   * `UserFactory.php` definition array does not include `occupation`.
-   * Result: All tests calling `User::factory()->create()` fail with `PDOException: NOT NULL constraint failed: users.occupation`.
-2. **Missing `RefreshDatabase` Trait**:
-   * `tests/Feature/ExampleTest.php` has `use RefreshDatabase;` commented out.
-   * Result: Running `ExampleTest` against in-memory SQLite fails with `SQLSTATE[HY000]: General error: 1 no such table: categories`.
-3. **Zero Coverage for Core Features**:
-   * No automated tests exist for `CategoryController`, `CourseController`, `CourseVideoController`, `TeacherController`, `SubscribeTransactionController`, or `FrontController`.
+* **Domain Feature Coverage Gap**: While existing Breeze authentication and profile tests pass cleanly, minimal or zero automated feature test coverage currently exists for core business functionality:
+  * `CategoryController` (CRUD operations and slug key binding)
+  * `CourseController` (course management and teacher assignment)
+  * `CourseVideoController` (video management per course)
+  * `TeacherController` (teacher status management)
+  * `SubscribeTransactionController` (transaction review and approval)
+  * `FrontController` (public catalog, pricing, checkout proof submission, and course learning access)
 
 ---
 
@@ -272,7 +271,7 @@ The frontend uses a dual-asset pipeline:
 * **P0-3: Non-existent Video Handling**: `FrontController@learning` searches for video via `$course->course_videos->firstWhere('id', $courseVideoId)`. If not found, it passes `$video = null` to the view without throwing a 404 HTTP exception.
 
 ### P1 (Reliability & Maintainability Debt)
-* **P1-1: Broken Automated Test Suite**: `UserFactory` missing `occupation` field breaks all factory-dependent tests out of the box.
+* **P1-1: Core Domain Automated Test Coverage Gap**: Automated test suite baseline is green, but core domain controllers (`CategoryController`, `CourseController`, `CourseVideoController`, `TeacherController`, `SubscribeTransactionController`, `FrontController`) lack automated regression test coverage.
 * **P1-2: Owner Cannot Create Courses**: `CourseController@store` assumes every user creating a course has a record in `teachers` table. Owners without a `Teacher` record are rejected with a session error.
 * **P1-3: Teacher/Owner Learning Block**: Teachers and Owners cannot preview learning pages unless they purchase a student subscription.
 * **P1-4: Hardcoded Subscription Price**: `FrontController@checkout_store` hardcodes `$validated['total_amount'] = 429000` while `StudentSubscriptionSeeder` seeds `150000`.
