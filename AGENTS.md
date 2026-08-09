@@ -221,8 +221,6 @@ php artisan test
 ./vendor/bin/phpunit
 ```
 
-*Note on Testing*: `UserFactory.php` requires `occupation` attribute population for factory-based tests to pass against database constraints.
-
 ---
 
 ## 15. Definition of Done
