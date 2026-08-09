@@ -118,6 +118,12 @@ Before executing any coding task, future agents **MUST**:
 6. Identify possible side effects on model relationships, cascade deletes, or role permissions.
 7. Produce a concise implementation plan and present it to the user before initiating multi-file modifications.
 
+### UI & Frontend Task Routing
+For tasks that build, modify, or restyle UI/UX:
+1. Read `DESIGN.md` for project-specific direction.
+2. Read `ANTISLOP.md` for UI quality filter rules.
+3. Follow both before generating or modifying UI.
+
 ---
 
 ## 9. Scope Discipline
