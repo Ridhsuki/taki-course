@@ -1,69 +1,15 @@
-<!doctype html>
-<html>
+@extends('layouts.front')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('css/output.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <!-- CSS -->
+@push('styles')
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
-</head>
+@endpush
 
-<body class="text-black font-poppins pt-10 pb-[50px]">
+@section('content')
     <div style="background-image: url('{{ asset('assets//background/Hero-Banner.png') }}');" id="hero-section"
         class="max-w-[1200px] mx-auto w-full h-[393px] flex flex-col gap-10 pb-[50px] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden absolute transform -translate-x-1/2 left-1/2">
-        <nav class="flex justify-between items-center pt-6 px-[50px]">
-            <a href="{{ route('front.index') }}" class="flex shrink-0">
-                <img src="{{ asset('assets/logo/logo-white-custom.png') }}" alt="logo"
-                    style="height: 48px; width: auto;" class="object-contain">
-            </a>
-            <ul class="flex items-center gap-[30px] text-white">
-                <li>
-                    <a href="{{ route('front.index') }}" class="font-semibold">Home</a>
-                </li>
-                <li>
-                    <a href="{{ route('front.pricing') }}" class="font-semibold">Pricing</a>
-                </li>
-                <li>
-                    <a href="#" class="font-semibold">Benefits</a>
-                </li>
-                <li>
-                    <a href="#" class="font-semibold">Stories</a>
-                </li>
-            </ul>
-            @auth
-                <div class="flex gap-[10px] items-center">
-                    <div class="flex flex-col items-end justify-center">
-                        <p class="font-semibold text-white">Hi, {{ Auth::user()->name }}</p>
-                        @if (Auth::user()->hasActiveSubscription())
-                            <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">
-                                PRO
-                            </p>
-                        @endif
-                    </div>
-                    <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
-                        <a href="{{ route('dashboard') }}">
-                            <img src="{{ Auth::user()->avatar ? Storage::url(Auth::user()->avatar) : asset('images/default-avatar.png') }}"
-                                loading="lazy" class="w-full h-full object-cover" alt="{{ Auth::user()->name }}">
-                        </a>
-                    </div>
-                </div>
-            @endauth
-            @guest
-                <div class="flex gap-[10px] items-center">
-                    <a href="{{ route('register') }}"
-                        class="text-white font-semibold rounded-[30px] p-[16px_32px] ring-1 ring-white transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">Sign
-                        Up</a>
-                    <a href="{{ route('login') }}"
-                        class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129] transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980]">Sign
-                        In</a>
-                </div>
-            @endguest
-        </nav>
+        <x-front.navbar />
     </div>
     <section id="video-content" class="max-w-[1100px] w-full mx-auto mt-[130px]">
         <div class="video-player relative flex flex-nowrap gap-5">
@@ -82,7 +28,7 @@
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
-                                    d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 14.74 8.61997 13.9V10.55C8.61997 9.72 9.04997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
+                                    d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
                                     fill="currentColor" />
                             </svg>
                         </div>
@@ -103,7 +49,7 @@
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
-                                            d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 14.74 8.61997 13.9V10.55C8.61997 9.72 9.04997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
+                                            d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
                                             fill="currentColor" />
                                     </svg>
                                 </div>
@@ -112,7 +58,7 @@
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
-                                            d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 14.74 8.61997 13.9V10.55C8.61997 9.72 9.04997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
+                                            d="M11.97 2C6.44997 2 1.96997 6.48 1.96997 12C1.96997 17.52 6.44997 22 11.97 22C17.49 22 21.97 17.52 21.97 12C21.97 6.48 17.5 2 11.97 2ZM14.97 14.23L12.07 15.9C11.71 16.11 11.31 16.21 10.92 16.21C10.52 16.21 10.13 16.11 9.76997 15.9C9.04997 15.48 8.61997 8.97 9.76997 8.55C10.49 8.13 11.35 8.13 12.08 8.55L14.98 10.22C15.7 10.64 16.13 11.38 16.13 12.22C16.13 13.06 15.7 13.81 14.97 14.23Z"
                                             fill="currentColor" />
                                     </svg>
                                 </div>
@@ -188,8 +134,7 @@
                                     @forelse ($course->course_keypoints as $keypoint)
                                         <div class="benefit-card flex items-center gap-3">
                                             <div class="w-6 h-6 flex shrink-0">
-                                                <img src="{{ asset('assets//icon/tick-circle.svg') }}"
-                                                    alt="icon">
+                                                <img src="{{ asset('assets//icon/tick-circle.svg') }}" alt="icon">
                                             </div>
                                             <p class="font-medium leading-[30px]">{{ $keypoint->name }}</p>
                                         </div>
@@ -248,12 +193,11 @@
                                     <a href=""
                                         class="w-[50px] h-[50px] flex shrink-0 rounded-full overflow-hidden">
                                         <img src="{{ $course->teacher->user->avatar ? Storage::url($course->teacher->user->avatar) : asset('images/default-avatar.png') }}"
-                                            alt="{{ $course->teacher->user->name }}"
-                                            class="w-full h-full object-cover" loading="lazy">
+                                            alt="{{ $course->teacher->user->name }}" class="w-full h-full object-cover"
+                                            loading="lazy">
                                     </a>
                                     <div class="flex flex-col gap-[2px]">
-                                        <a href="#"
-                                            class="font-semibold">{{ $course->teacher->user->name }}</a>
+                                        <a href="#" class="font-semibold">{{ $course->teacher->user->name }}</a>
                                         <p class="text-sm text-[#6D7786]">{{ $course->teacher->user->occupation }}</p>
                                     </div>
                                 </div>
@@ -266,8 +210,8 @@
 
                             <div class="flex items-center gap-3">
                                 <div class="w-[50px] h-[50px] flex shrink-0 rounded-full overflow-hidden">
-                                    <img src="{{ asset('assets//icon/Group 7.svg') }}"
-                                        class="w-full h-full object-cover" alt="icon">
+                                    <img src="{{ asset('assets//icon/Group 7.svg') }}" class="w-full h-full object-cover"
+                                        alt="icon">
                                 </div>
                                 <div class="flex flex-col gap-[2px]">
                                     <div class="font-semibold">Spirit of Learning</div>
@@ -276,8 +220,8 @@
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="w-[50px] h-[50px] flex shrink-0 rounded-full overflow-hidden">
-                                    <img src="{{ asset('assets//icon/Group 7-1.svg') }}"
-                                        class="w-full h-full object-cover" alt="icon">
+                                    <img src="{{ asset('assets//icon/Group 7-1.svg') }}" class="w-full h-full object-cover"
+                                        alt="icon">
                                 </div>
                                 <div class="flex flex-col gap-[2px]">
                                     <div class="font-semibold">Everyday New</div>
@@ -286,8 +230,8 @@
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="w-[50px] h-[50px] flex shrink-0 rounded-full overflow-hidden">
-                                    <img src="{{ asset('assets//icon/Group 7-2.svg') }}"
-                                        class="w-full h-full object-cover" alt="icon">
+                                    <img src="{{ asset('assets//icon/Group 7-2.svg') }}" class="w-full h-full object-cover"
+                                        alt="icon">
                                 </div>
                                 <div class="flex flex-col gap-[2px]">
                                     <div class="font-semibold">Quick Learner Pro</div>
@@ -310,20 +254,20 @@
                         <div class="rounded-[20px] overflow-hidden w-full h-[200px] hover:shadow-[0_10px_20px_0_#0D051D20] transition-all duration-300"
                             data-src="{{ asset('assets//thumbnail/image-1.png') }}" data-fancybox="gallery"
                             data-caption="Caption #1">
-                            <img src="{{ asset('assets//thumbnail/image-1.png') }}"
-                                class="object-cover h-full w-full" alt="image">
+                            <img src="{{ asset('assets//thumbnail/image-1.png') }}" class="object-cover h-full w-full"
+                                alt="image">
                         </div>
                         <div class="rounded-[20px] overflow-hidden w-full h-[200px] hover:shadow-[0_10px_20px_0_#0D051D20] transition-all duration-300"
                             data-src="{{ asset('assets//thumbnail/image-2.png') }}" data-fancybox="gallery"
                             data-caption="Caption #1">
-                            <img src="{{ asset('assets//thumbnail/image-2.png') }}"
-                                class="object-cover h-full w-full" alt="image">
+                            <img src="{{ asset('assets//thumbnail/image-2.png') }}" class="object-cover h-full w-full"
+                                alt="image">
                         </div>
                         <div class="rounded-[20px] overflow-hidden w-full h-[200px] hover:shadow-[0_10px_20px_0_#0D051D20] transition-all duration-300"
                             data-src="{{ asset('assets//thumbnail/image-3.png') }}" data-fancybox="gallery"
                             data-caption="Caption #1">
-                            <img src="{{ asset('assets//thumbnail/image-3.png') }}"
-                                class="object-cover h-full w-full" alt="image">
+                            <img src="{{ asset('assets//thumbnail/image-3.png') }}" class="object-cover h-full w-full"
+                                alt="image">
                         </div>
                     </div>
                 </div>
@@ -409,85 +353,9 @@
             </div>
         </div>
     </section>
-    <footer
-        class="max-w-[1200px] mx-auto flex flex-col pt-[70px] pb-[50px] px-[100px] gap-[50px] bg-[#F5F8FA] rounded-[32px]">
-        <div class="flex justify-between">
-            <a href="" class="flex shrink-0">
-                <div>
-                    <img src="{{ asset('assets/logo/logo-black-custom.png') }}" alt="logo"
-                        style="height: 45px; width: auto;" class="object-contain">
-                </div>
-            </a>
-            <div class="flex flex-col gap-5">
-                <p class="font-semibold text-lg">Products</p>
-                <ul class="flex flex-col gap-[14px]">
-                    <li>
-                        <a href="" class="text-[#6D7786]">Online Courses</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Career Guidance</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Expert Handbook</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Interview Simulations</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="flex flex-col gap-5">
-                <p class="font-semibold text-lg">Company</p>
-                <ul class="flex flex-col gap-[14px]">
-                    <li>
-                        <a href="" class="text-[#6D7786]">About Us</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Media Press</a>
-                    </li>
-                    <li class="flex items-center gap-[10px]">
-                        <a href="" class="text-[#6D7786]">Careers</a>
-                        <div
-                            class="gradient-badge w-fit p-[6px_10px] rounded-full border border-[#FED6AD] flex items-center">
-                            <p class="font-medium text-xs text-[#FF6129]">We’re Hiring</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Developer APIs</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="flex flex-col gap-5">
-                <p class="font-semibold text-lg">Resources</p>
-                <ul class="flex flex-col gap-[14px]">
-                    <li>
-                        <a href="" class="text-[#6D7786]">Blog</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">FAQ</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Help Center</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Terms & Conditions</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="w-full h-[51px] flex items-end border-t border-[#E7EEF2]">
-            <p class="mx-auto text-sm text-[#6D7786] -tracking-[2%]">All Rights Reserved Alqowy BuildWithAngga 2024</p>
-        </div>
-    </footer>
+@endsection
 
-    <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
+@push('scripts')
     <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-
-    <script src="{{ asset('js/main.js') }}"></script>
-</body>
-
-</html>
+@endpush

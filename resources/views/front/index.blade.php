@@ -1,67 +1,13 @@
-<!doctype html>
-<html>
+@extends('layouts.front')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('css/output.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-
+@push('styles')
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-</head>
+@endpush
 
-<body class="text-black font-poppins pt-10 pb-[50px]">
-    <div id="hero-section"
-        class="max-w-[1200px] mx-auto w-full flex flex-col gap-10 pb-[50px] bg-[url('/assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden">
-        <nav class="flex justify-between items-center pt-6 px-[50px]">
-            <a href="" class="flex shrink-0">
-                <img src="{{ asset('assets/logo/logo-white-custom.png') }}" alt="logo"
-                    style="height: 48px; width: auto;" class="object-contain">
-            </a>
-            <ul class="flex items-center gap-[30px] text-white">
-                <li>
-                    <a href="{{ route('front.index') }}" class="font-semibold">Home</a>
-                </li>
-                <li>
-                    <a href="{{ route('front.pricing') }}" class="font-semibold">Pricing</a>
-                </li>
-                <li>
-                    <a href="#" class="font-semibold">Benefits</a>
-                </li>
-                <li>
-                    <a href="#" class="font-semibold">Stories</a>
-                </li>
-            </ul>
-            @auth
-                <div class="flex gap-[10px] items-center">
-                    <div class="flex flex-col items-end justify-center">
-                        <p class="font-semibold text-white">Hi, {{ Auth::user()->name }}</p>
-                        @if (Auth::user()->hasActiveSubscription())
-                            <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">
-                                PRO
-                            </p>
-                        @endif
-                    </div>
-                    <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
-                        <a href="{{ route('dashboard') }}">
-                            <img src="{{ Auth::user()->avatar ? Storage::url(Auth::user()->avatar) : asset('images/default-avatar.png') }}"
-                                loading="lazy" class="w-full h-full object-cover" alt="{{ Auth::user()->name }}">
-                        </a>
-                    </div>
-                </div>
-            @endauth
-            @guest
-                <div class="flex gap-[10px] items-center">
-                    <a href="{{ route('register') }}"
-                        class="text-white font-semibold rounded-[30px] p-[16px_32px] ring-1 ring-white transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">Sign
-                        Up</a>
-                    <a href="{{ route('login') }}"
-                        class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129] transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980]">Sign
-                        In</a>
-                </div>
-            @endguest
-        </nav>
+@section('content')
+    <div style="background-image: url('{{ asset('assets/background/Hero-Banner.png') }}');" id="hero-section"
+        class="max-w-[1200px] mx-auto w-full flex flex-col gap-10 pb-[50px] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden">
+        <x-front.navbar />
         <div class="flex flex-col items-center gap-[30px]">
             <div class="w-fit flex items-center gap-3 p-2 pr-6 rounded-full bg-[#FFFFFF1F] border border-[#3477FF24]">
                 <div class="w-[100px] h-[48px] flex shrink-0">
@@ -813,83 +759,8 @@
             </div>
         </div>
     </section>
-    <footer
-        class="max-w-[1200px] mx-auto flex flex-col pt-[70px] pb-[50px] px-[100px] gap-[50px] bg-[#F5F8FA] rounded-[32px]">
-        <div class="flex justify-between">
-            <a href="" class="flex shrink-0">
-                <div>
-                    <img src="{{ asset('assets/logo/logo-black-custom.png') }}" alt="logo"
-                        style="height: 45px; width: auto;" class="object-contain">
-                </div>
-            </a>
-            <div class="flex flex-col gap-5">
-                <p class="font-semibold text-lg">Products</p>
-                <ul class="flex flex-col gap-[14px]">
-                    <li>
-                        <a href="" class="text-[#6D7786]">Online Courses</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Career Guidance</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Expert Handbook</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Interview Simulations</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="flex flex-col gap-5">
-                <p class="font-semibold text-lg">Company</p>
-                <ul class="flex flex-col gap-[14px]">
-                    <li>
-                        <a href="" class="text-[#6D7786]">About Us</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Media Press</a>
-                    </li>
-                    <li class="flex items-center gap-[10px]">
-                        <a href="" class="text-[#6D7786]">Careers</a>
-                        <div
-                            class="gradient-badge w-fit p-[6px_10px] rounded-full border border-[#FED6AD] flex items-center">
-                            <p class="font-medium text-xs text-[#FF6129]">We’re Hiring</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Developer APIs</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="flex flex-col gap-5">
-                <p class="font-semibold text-lg">Resources</p>
-                <ul class="flex flex-col gap-[14px]">
-                    <li>
-                        <a href="" class="text-[#6D7786]">Blog</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">FAQ</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Help Center</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-[#6D7786]">Terms & Conditions</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="w-full h-[51px] flex items-end border-t border-[#E7EEF2]">
-            <p class="mx-auto text-sm text-[#6D7786] -tracking-[2%]">All Rights Reserved Taki Course BuildWithAngga
-                2024</p>
-        </div>
-    </footer>
+@endsection
 
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+@push('scripts')
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
-
-</body>
-
-</html>
+@endpush
