@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class CourseController extends Controller
@@ -18,6 +19,8 @@ class CourseController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Course::class);
+
         $user = Auth::user();
         $query = Course::with(['category', 'teacher', 'students'])
             ->orderByDesc('id');
@@ -38,6 +41,8 @@ class CourseController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Course::class);
+
         $categories = Category::all();
 
         return view('admin.courses.create', compact('categories'));
@@ -48,6 +53,8 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
+        Gate::authorize('create', Course::class);
+
         $teacher = Teacher::where('user_id', Auth::user()->id)->first();
 
         if (! $teacher) {
@@ -86,6 +93,8 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        Gate::authorize('view', $course);
+
         return view('admin.courses.show', compact('course'));
     }
 
@@ -94,6 +103,8 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        Gate::authorize('update', $course);
+
         $categories = Category::all();
 
         return view('admin.courses.edit', compact('course', 'categories'));
@@ -104,6 +115,8 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
+        Gate::authorize('update', $course);
+
         DB::transaction(function () use ($request, $course) {
 
             $validated = $request->validated();
@@ -135,6 +148,8 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+        Gate::authorize('delete', $course);
+
         DB::beginTransaction();
 
         try {
