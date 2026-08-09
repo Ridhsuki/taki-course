@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCourseVideoRequest;
 use App\Models\Course;
 use App\Models\CourseVideo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CourseVideoController extends Controller
@@ -36,6 +35,7 @@ class CourseVideoController extends Controller
 
             $courseVideo = CourseVideo::create($validated);
         });
+
         return redirect()->route('admin.courses.show', $course->id);
     }
 
@@ -66,6 +66,7 @@ class CourseVideoController extends Controller
 
             $courseVideo->update($validated);
         });
+
         return redirect()->route('admin.courses.show', $courseVideo->course_id);
     }
 

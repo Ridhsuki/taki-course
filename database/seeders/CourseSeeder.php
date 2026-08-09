@@ -23,7 +23,7 @@ class CourseSeeder extends Seeder
             ->where('user_id', $teacherUserId)
             ->first();
 
-        if (!$teacher) {
+        if (! $teacher) {
             throw new RuntimeException(
                 'Teacher tidak ditemukan. Jalankan RolePermissionSeeder terlebih dahulu.'
             );
@@ -37,7 +37,7 @@ class CourseSeeder extends Seeder
         foreach ($courses as $courseData) {
             $categorySlug = $courseData['category_slug'];
 
-            if (!isset($categoryIds[$categorySlug])) {
+            if (! isset($categoryIds[$categorySlug])) {
                 throw new RuntimeException(
                     "Category {$categorySlug} tidak ditemukan."
                 );

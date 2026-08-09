@@ -7,7 +7,6 @@ use App\Models\Course;
 use App\Models\CourseStudent;
 use App\Models\SubscribeTransaction;
 use App\Models\Teacher;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
