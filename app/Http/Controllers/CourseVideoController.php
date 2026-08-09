@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCourseVideoRequest;
 use App\Models\Course;
 use App\Models\CourseVideo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class CourseVideoController extends Controller
 {
@@ -19,6 +20,8 @@ class CourseVideoController extends Controller
      */
     public function create(Course $course)
     {
+        Gate::authorize('create', [CourseVideo::class, $course]);
+
         return view('admin.course_videos.create', compact('course'));
     }
 
@@ -27,6 +30,8 @@ class CourseVideoController extends Controller
      */
     public function store(StoreCourseVideoRequest $request, Course $course)
     {
+        Gate::authorize('create', [CourseVideo::class, $course]);
+
         DB::transaction(function () use ($request, $course) {
 
             $validated = $request->validated();
@@ -52,6 +57,8 @@ class CourseVideoController extends Controller
      */
     public function edit(CourseVideo $courseVideo)
     {
+        Gate::authorize('update', $courseVideo);
+
         return view('admin.course_videos.edit', compact('courseVideo'));
     }
 
@@ -60,6 +67,8 @@ class CourseVideoController extends Controller
      */
     public function update(StoreCourseVideoRequest $request, CourseVideo $courseVideo)
     {
+        Gate::authorize('update', $courseVideo);
+
         DB::transaction(function () use ($request, $courseVideo) {
 
             $validated = $request->validated();
@@ -75,6 +84,8 @@ class CourseVideoController extends Controller
      */
     public function destroy(CourseVideo $courseVideo)
     {
+        Gate::authorize('delete', $courseVideo);
+
         DB::beginTransaction();
 
         try {
