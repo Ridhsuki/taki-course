@@ -101,6 +101,7 @@ To keep pull requests clean, predictable, and easy to review:
 * **Preserve Public Contracts**: Do not change public route URIs, controller action parameters, or model method signatures unless requested.
 * **Dependency Stability**: Avoid adding new packages or updating `composer.lock` / `package-lock.json` unless mandatory for the task.
 * **Database Caution**: Always inspect foreign key cascades, soft deletes, and nullability constraints in `database/migrations/` before modifying persistence operations.
+* **UI & Restyling Guardrails**: Pull requests that modify or restyle UI/UX must adhere to project direction in `DESIGN.md` and quality standards in `ANTISLOP.md`.
 
 ---
 
