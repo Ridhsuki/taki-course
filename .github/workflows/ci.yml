@@ -55,8 +55,5 @@ jobs:
       - name: Run PHPUnit Tests
         run: ./vendor/bin/phpunit
 
-      # Temporary non-blocking check for pre-existing codebase formatting debt (~30 unformatted files).
-      # Pint check should become blocking (continue-on-error: false) after a dedicated baseline formatting cleanup.
       - name: Check PHP Code Style (Pint)
         run: ./vendor/bin/pint --test
-        continue-on-error: true

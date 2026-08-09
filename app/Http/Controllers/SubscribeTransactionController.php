@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubscribeTransaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class SubscribeTransactionController extends Controller
 {
@@ -56,11 +56,11 @@ class SubscribeTransactionController extends Controller
      */
     public function update(Request $request, SubscribeTransaction $subscribeTransaction)
     {
-        DB::transaction(function() use ($subscribeTransaction){
+        DB::transaction(function () use ($subscribeTransaction) {
 
             $subscribeTransaction->update([
                 'is_paid' => true,
-                'subscription_start_date' => Carbon::now()
+                'subscription_start_date' => Carbon::now(),
             ]);
         });
 

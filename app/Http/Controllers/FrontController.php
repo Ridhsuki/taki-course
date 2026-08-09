@@ -6,7 +6,6 @@ use App\Http\Requests\StoreSubscribeTransactionRequest;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\SubscribeTransaction;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -28,6 +27,7 @@ class FrontController extends Controller
     public function category(Category $category)
     {
         $courses = $category->courses()->get();
+
         return view('front.category', compact('category', 'courses'));
     }
 
@@ -36,6 +36,7 @@ class FrontController extends Controller
         if (Auth::check() && Auth::user()->hasActiveSubscription()) {
             return redirect()->route('front.index');
         }
+
         return view('front.pricing');
     }
 
@@ -44,6 +45,7 @@ class FrontController extends Controller
         if (Auth::user()->hasActiveSubscription()) {
             return redirect()->route('front.index');
         }
+
         return view('front.checkout');
     }
 
@@ -81,7 +83,7 @@ class FrontController extends Controller
     public function learning(Course $course, $courseVideoId)
     {
         $user = Auth::user();
-        if (!$user->hasActiveSubscription()) {
+        if (! $user->hasActiveSubscription()) {
             return redirect()->route('front.pricing');
         }
         $video = $course->course_videos->firstWhere('id', $courseVideoId);

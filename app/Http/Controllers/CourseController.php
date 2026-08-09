@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Teacher;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -30,6 +29,7 @@ class CourseController extends Controller
         }
 
         $courses = $query->paginate(10);
+
         return view('admin.courses.index', compact('courses'));
     }
 
@@ -39,6 +39,7 @@ class CourseController extends Controller
     public function create()
     {
         $categories = Category::all();
+
         return view('admin.courses.create', compact('categories'));
     }
 
@@ -49,7 +50,7 @@ class CourseController extends Controller
     {
         $teacher = Teacher::where('user_id', Auth::user()->id)->first();
 
-        if (!$teacher) {
+        if (! $teacher) {
             return redirect()->route('admin.courses.index')->withErrors('Unauthorized or invalid teacher.');
         }
 
@@ -68,7 +69,7 @@ class CourseController extends Controller
 
             $course = Course::create($validated);
 
-            if (!empty($validated['course_keypoints'])) {
+            if (! empty($validated['course_keypoints'])) {
                 foreach ($validated['course_keypoints'] as $keypointText) {
                     $course->course_keypoints()->create([
                         'name' => $keypointText,
@@ -94,6 +95,7 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         $categories = Category::all();
+
         return view('admin.courses.edit', compact('course', 'categories'));
     }
 
@@ -115,7 +117,7 @@ class CourseController extends Controller
 
             $course->update($validated);
 
-            if (!empty($validated['course_keypoints'])) {
+            if (! empty($validated['course_keypoints'])) {
                 $course->course_keypoints()->delete();
                 foreach ($validated['course_keypoints'] as $keypointText) {
                     $course->course_keypoints()->create([

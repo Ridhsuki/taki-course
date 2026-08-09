@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //perlu login dulu sebelum bkin transaksi
+    // perlu login dulu sebelum bkin transaksi
     Route::get('/checkout', [FrontController::class, 'checkout'])->name('front.checkout')->middleware('role:student');
     Route::post('/checkout/store', [FrontController::class, 'checkout_store'])->name('front.checkout.store')->middleware('role:student');
 
@@ -53,5 +53,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

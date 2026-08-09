@@ -19,7 +19,7 @@ class TeacherController extends Controller
         $teachers = Teacher::orderBy('id', 'desc')->get();
 
         return view('admin.teachers.index', [
-            'teachers' => $teachers
+            'teachers' => $teachers,
         ]);
     }
 
@@ -40,15 +40,15 @@ class TeacherController extends Controller
 
         $user = User::where('email', $validated['email'])->first();
 
-        if (!$user) {
+        if (! $user) {
             return back()->withErrors([
-                'email' => 'Data tidak ditemukan'
+                'email' => 'Data tidak ditemukan',
             ]);
         }
 
         if ($user->hasRole('teacher')) {
             return back()->withErrors([
-                'email' => 'Email tersebut telah menjadi guru'
+                'email' => 'Email tersebut telah menjadi guru',
             ]);
         }
 
@@ -110,7 +110,7 @@ class TeacherController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             $error = ValidationException::withMessages([
-                'system_error' => ['System error!' . $e->getMessage()],
+                'system_error' => ['System error!'.$e->getMessage()],
             ]);
             throw $error;
         }
