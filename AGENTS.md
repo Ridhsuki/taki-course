@@ -10,7 +10,7 @@ Operational contract and guardrails for AI coding agents working on `taki-course
 * **Architecture Pattern**: MVC with Blade templates, FormRequests, Eloquent Models, and Spatie Role-Based Access Control (RBAC).
 * **Frontend Stack**:
   * **Admin & Auth**: Blade views powered by Tailwind CSS via Vite (`@vite(['resources/css/app.css', 'resources/js/app.js'])`) and Alpine.js.
-  * **Public / Student Front**: Blade views using compiled Tailwind CSS (`public/css/output.css`), jQuery 3.7.1, Flickity 2 (carousels), Plyr (video player), Fancybox (lightboxes), and custom JavaScript (`public/js/main.js`).
+  * **Public / Student Front**: Blade views using a shared public layout and reusable navbar/footer components, with Tailwind CSS compiled through Laravel Vite (`@vite(['resources/css/app.css', 'resources/js/app.js'])`). Legacy `public/js/main.js` plus jQuery 3.7.1, Flickity 2 (carousels), Plyr (video player), and Fancybox (lightboxes) remain in use where required.
 * **Key Dependencies**: `spatie/laravel-permission` (v6.25), `laravel/breeze` (v2.4).
 * **Database Assumptions**: SQLite for local testing (`:memory:`) or MySQL (production/dev environment). Soft deletes (`$table->softDeletes()`) exist in migrations for `Teacher`, `Category`, `Course`, `CourseKeypoint`, `CourseVideo`, `SubscribeTransaction`, and `CourseStudent`. The `SoftDeletes` trait is enabled on Eloquent models for `Teacher`, `Category`, `Course`, `CourseKeypoint`, `CourseVideo`, and `SubscribeTransaction`. *Note*: `CourseStudent` model does NOT currently import or use the `SoftDeletes` trait despite the database column existing in migration (alignment is DEFERRED technical debt).
 
@@ -102,7 +102,7 @@ The application defines three Spatie roles: `owner`, `teacher`, `student`.
   * Routes: dot notation with `front.` prefix for public pages and `admin.` prefix for back-office pages.
 * **Blade Organization**:
   * Admin layout: `<x-app-layout>` wrapping Blade components.
-  * Front templates: Standalone HTML layout files in `resources/views/front/` referencing `asset('css/output.css')` and `asset('js/main.js')`.
+  * Front templates: Shared public layout (`resources/views/layouts/front.blade.php`) wrapping views with reusable navbar/footer components, referencing `@vite(['resources/css/app.css', 'resources/js/app.js'])` and `asset('js/main.js')`.
 
 ---
 
