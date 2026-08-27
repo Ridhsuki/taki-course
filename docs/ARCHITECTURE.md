@@ -69,7 +69,7 @@ The application domain consists of eight primary Eloquent models.
      * `subscribe_transactions()`: `hasMany(SubscribeTransaction::class)`
      * `roles`: Spatie `HasRoles` trait (`owner`, `teacher`, `student`).
    * **Key Method**: `hasActiveSubscription()` returns boolean based on paid transaction within 1 month.
-   * **Profile Management**: Profile editing (`name`, `email`, `password`, `occupation`, `avatar`) is supported for all authenticated roles via [`ProfileController.php`](file:///home/adminfid/Documents/Projects/taki-course/app/Http/Controllers/ProfileController.php).
+   * **Profile Management**: Profile editing (`name`, `email`, `password`, `occupation`, `avatar`) is supported for all authenticated roles via [`ProfileController.php`](/app/Http/Controllers/ProfileController.php).
 
 2. **Teacher** (`app/Models/Teacher.php`)
    * **Database Table**: `teachers` (SoftDeletes enabled on model and migration)
@@ -223,18 +223,26 @@ Roles are managed via Spatie Laravel Permission (`RolePermissionSeeder.php`).
 
 ## 6. Frontend Architecture
 
-The frontend uses a dual-asset pipeline:
+```text
+Public frontend
+    ↓
+resources/views/layouts/front.blade.php
+    ↓
+shared Blade components
+    ↓
+resources/css/app.css
+    ↓
+Tailwind CSS + Laravel Vite
+    ↓
+public/build/assets/*
+```
 
-1. **Admin / Dashboard Pipeline**:
-   * Layouts: `resources/views/layouts/app.blade.php`, `navigation.blade.php`.
-   * Assets: Loaded via Vite `@vite(['resources/css/app.css', 'resources/js/app.js'])`.
-   * JS Framework: Alpine.js.
-2. **Public Front Pipeline**:
-   * Views: `resources/views/front/*.blade.php`.
-   * Styles: `<link href="{{ asset('css/output.css') }}" rel="stylesheet">` (Tailwind build).
-   * Scripts & Libraries:
-     * Custom JS: `public/js/main.js` (accordion, tab switcher, file upload label update).
-     * Vendor CDN scripts: jQuery 3.7.1, Flickity slider (`flickity.pkgd.min.js`), Fancybox UI, Plyr video player.
+* **Public Frontend**: Public pages render through the shared Blade layout (`resources/views/layouts/front.blade.php`), using reusable navbar (`<x-front.navbar />`) and footer (`<x-front.footer />`) Blade components.
+* **Styling & Asset Bundling**: Tailwind CSS is compiled through Vite via `@vite(['resources/css/app.css', 'resources/js/app.js'])` into `public/build/assets/*`.
+* **Legacy & Page-Specific Assets**:
+  * `public/js/main.js` remains a legacy/custom JavaScript asset intentionally loaded by the public layout (accordion, tab switcher, file upload label update).
+  * Vendor libraries (jQuery 3.7.1, Flickity slider, Fancybox UI, Plyr video player) remain page-specific where applicable via CDN.
+* **Admin / Dashboard Pipeline**: Admin views use `<x-app-layout>` (`resources/views/layouts/app.blade.php`), Alpine.js, and shared Vite assets.
 
 ---
 
